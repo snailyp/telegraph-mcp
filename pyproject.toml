@@ -1,0 +1,38 @@
+[project]
+name = "telegraph-mcp"
+version = "0.1.0"
+description = "An MCP server that publishes Markdown documents as Telegraph pages"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "MIT" }
+dependencies = [
+    # 4.x is the API this server is written and verified against; the pinned
+    # lockfile records the exact version (4.0.11).
+    "fastmcp>=4.0",
+    "httpx>=0.27",
+    "markdown-it-py[linkify]>=3.0",
+    "mdit-py-plugins>=0.4",
+    "pydantic>=2.7",
+    "pydantic-settings>=2.3",
+]
+
+[project.scripts]
+telegraph-mcp = "telegraph_mcp.__main__:main"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.2",
+    "pytest-asyncio>=0.23",
+    "respx>=0.21",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/telegraph_mcp"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+asyncio_mode = "auto"
